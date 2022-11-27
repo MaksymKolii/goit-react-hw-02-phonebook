@@ -5,6 +5,8 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 
+import { Section } from './Section/Section';
+
 // model.id = nanoid(); //=> "V1StGXR8_Z5jdHi6B-myT"
 
 export class App extends Component {
@@ -56,23 +58,28 @@ export class App extends Component {
     );
   };
 
+  showContactsOptions = () => {
+    const { filter, contacts } = this.state;
+    return filter ? this.getFilteredContacts() : contacts;
+  };
   render() {
     const { filter } = this.state;
-    const options = this.getFilteredContacts();
     return (
       <>
-        <h1>Phonebook</h1>
-        <ContactForm addUser={this.addContact}></ContactForm>
-        <h2>Contacts</h2>
-        <Filter filtered={filter} filterChange={this.onFilterChange}></Filter>
-        {filter && (
+        <Section>
+          <h1>Phonebook</h1>
+          <ContactForm addUser={this.addContact}></ContactForm>
+        </Section>
+        <Section>
+          <h2>Contacts</h2>
+          <Filter filtered={filter} filterChange={this.onFilterChange}></Filter>
           <ContactList
-            options={options}
+            options={this.showContactsOptions()}
             onClickDelete={this.deleteContact}
           ></ContactList>
-        )}
+        </Section>
 
-        <GlobalStyle></GlobalStyle>
+        <GlobalStyle />
       </>
     );
   }

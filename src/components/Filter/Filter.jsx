@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import { Label, Input } from './Filter.styled';
+import PropTypes from 'prop-types';
 
 export class Filter extends Component {
   render() {
     return (
-      <label>
+      <Label>
         Find contacts by name
-        <input
+        <Input
           type="text"
           name="filter"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -14,7 +16,12 @@ export class Filter extends Component {
           onChange={this.props.filterChange}
           value={this.props.filtered}
         />
-      </label>
+      </Label>
     );
   }
 }
+
+Filter.propTypes = {
+  onChange: PropTypes.func,
+  value: PropTypes.string,
+};
