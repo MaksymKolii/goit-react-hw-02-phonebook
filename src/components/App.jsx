@@ -50,6 +50,7 @@ export class App extends Component {
       [name]: value,
     });
   };
+
   getFilteredContacts = () => {
     const { filter, contacts } = this.state;
 
@@ -64,6 +65,9 @@ export class App extends Component {
   };
   render() {
     const { filter } = this.state;
+
+    // const options = filter ? this.getFilteredContacts() : contacts;
+    const options = this.showContactsOptions();
     return (
       <>
         <Section>
@@ -74,7 +78,7 @@ export class App extends Component {
           <h2>Contacts</h2>
           <Filter filtered={filter} filterChange={this.onFilterChange}></Filter>
           <ContactList
-            options={this.showContactsOptions()}
+            options={options}
             onClickDelete={this.deleteContact}
           ></ContactList>
         </Section>
