@@ -19,13 +19,23 @@ export class App extends Component {
   };
 
   addContact = data => {
-    const newUser = {
+    const newContact = {
       ...data,
       id: nanoid(),
     };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newUser],
-    }));
+    const isNameExist = this.state.contacts.find(({ name, number }) => {
+      // name.toLowerCase() === newContact.name.toLowerCase();
+      return (
+        name.toLowerCase() === newContact.name.toLowerCase() ||
+        number === newContact.number
+      );
+    });
+
+    isNameExist
+      ? window.alert(`${newContact.name} is alredy in contacts!`)
+      : this.setState(prevState => ({
+          contacts: [...prevState.contacts, newContact],
+        }));
   };
   deleteContact = iD => {
     this.setState(prevState => ({
